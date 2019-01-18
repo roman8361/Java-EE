@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:viewParam name="id" value="#{taskEditController.id}" />
+    <f:viewAction action="#{taskEditController.init}" />
+</f:metadata>
+
+<f:view>
+    <ui:composition template="/WEB-INF/templates/template.xhtml">
+        <ui:param name="title" value="ADVIN" />
+        <ui:define name="content">
+            <h1><p:outputLabel value="EDIT TASK" /></h1>
+            <h:form>
+
+                <p:outputPanel>
+                    <p:outputLabel value="NAME" />
+                </p:outputPanel>
+                <p:outputPanel styleClass="ui-fluid">
+                    <p:inputText value="#{taskEditController.task.name}" />
+                </p:outputPanel>
+                <p:spacer height="20" />
+
+                <p:outputPanel>
+                    <p:outputLabel value="DESCRIPTION" />
+                </p:outputPanel>
+                <p:outputPanel styleClass="ui-fluid">
+                    <p:inputText value="#{taskEditController.task.description}" />
+                </p:outputPanel>
+
+                <p:outputPanel>
+                    <p:commandButton value="SAVE" action="#{taskEditController.save}"/>
+                    <p:spacer width="20" />
+                    <p:button value="TASK" outcome="task-list">
+                        <f:param name="a" value="1" />
+                    </p:button>
+                </p:outputPanel>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</f:view>
+</html>
