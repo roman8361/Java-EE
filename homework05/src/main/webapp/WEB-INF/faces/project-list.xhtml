@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"  >
+
+<f:view>
+    <ui:composition template="/WEB-INF/templates/template.xhtml">
+        <ui:param name="title" value="PROJECT LIST" />
+        <ui:define name="content">
+            <h:form>
+                <h1><p:outputLabel value="PROJECT LIST" /></h1>
+                <p:dataTable id="dataTable" rowIndexVar="indexVar"
+                             value="#{projectListController.listProject}" var="project" >
+                    <f:facet name="header">
+                        <p:outputPanel style="margin: 5px;">
+                            <p:outputLabel value="PROJECTS" />
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column headerText="№" width="60" style="text-align: center;">
+                        <p:outputLabel value="#{indexVar + 1}." />
+                    </p:column>
+
+                    <p:column headerText="NAME" width="200" style="text-align: left;">
+                        <p:outputLabel value="#{project.name}" />
+                    </p:column>
+
+                    <p:column headerText="DESCRIPTION" style="text-align: left;">
+                        <p:outputLabel value="#{project.description}" />
+                    </p:column>
+
+                    <p:column headerText="DATE BEGIN" style="text-align: left">
+                        <p:outputLabel value="#{project.dateBegin}">
+                            <f:convertDateTime pattern="dd.MM.yyyy" />
+                        </p:outputLabel>
+                    </p:column>
+
+                    <p:column headerText="DATE END" style="text-align: left">
+                        <p:outputLabel value="#{project.dateEnd}">
+                            <f:convertDateTime pattern="dd.MM.yyyy" />
+                        </p:outputLabel>
+                    </p:column>
+
+                    <p:column width="30" style="text-align: center;">
+                        <p:link outcome="project-edit">
+                            <i class="fa fa-edit" style="font-size: 1.5em;margin: 5px"/>
+                            <f:param name="id" value="#{project.id}" />
+                        </p:link>
+                    </p:column>
+                    <p:column width="30" style="text-align: center;">
+                        <p:commandLink actionListener="#{projectListController.removeProjectById(project.id)}" update="@form">
+                            <i class="fa fa-trash" style="font-size: 1.5em;margin: 5px;"/>
+                        </p:commandLink>
+                    </p:column>
+                </p:dataTable>
+                <p:spacer height="20" />
+                <p:outputPanel>
+                    <p:button value="CREATE" outcome="project-new" />
+                    <p:spacer width="20" />
+                    <p:commandButton value="REFRESH" update="@form" />
+                </p:outputPanel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</f:view>
+</html>
